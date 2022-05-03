@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup x>
 import { RouterLink } from "vue-router";
 import CardCity from "../components/CardCity.vue";
 import { onMounted, ref } from "vue";

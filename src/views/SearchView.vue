@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import { computed, onMounted} from "vue";
 import Header from "../components/Header.vue";
 import CardCity from "../components/CardCity.vue";
