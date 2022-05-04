@@ -1,7 +1,7 @@
-<script setup x>
+<script setup lang="ts">
 import { RouterLink } from "vue-router";
 import CardCity from "../components/CardCity.vue";
-import { onMounted, ref } from "vue";
+import { ref, watch } from "vue";
 import Header from "../components/Header.vue";
 import { useGetData } from "@/store/useGetData";
 import { computed } from "vue";
@@ -11,27 +11,37 @@ interface City {
   imgUrl: string;
   name: string;
   locals: {
-    total: Number;
-    turism: Number;
-    event: Number;
+    total: number;
+    turism: number;
+    event: number;
   };
+  localList:{
+    name:string;
+    type: string;
+    typeId:number;
+    ratting: number;
+    imgUrl: string;
+  }
+  description: string;
+  shortDescription: string;
 }
 
 
+const citiesFirstColumn = ref<City[]>([]);
+const citiesSecondColumn = ref<City[]>([]);
+
 
 const store = useGetData();
+store.fetchCities();
 
-onMounted(() => {
-  store.fetchCities();
+const cities = computed(() =>{
+  return store.cities
+});
+
+watch(cities,() =>{
+  citiesFirstColumn.value = cities.value.slice(0, 3);
+  citiesSecondColumn.value = cities.value.slice(3, 5);
 })
-
-const citiesFirstColumn = computed(() =>{
-  return store.citiesFirstColumn
-});
-
-const citiesSecondColumn = computed(() =>{
-  return store.citiesSecondColumn
-});
 
 </script>
 
@@ -56,8 +66,8 @@ const citiesSecondColumn = computed(() =>{
             v-for="city in citiesFirstColumn"
             :id="city.id"
             :key="city.id"
+            :total-locals= "city.locals.total"
             :name="city.name"
-            :totalLocals= "city.locals.total"
             :style="{ backgroundImage: `url(${city.imgUrl})` }"
           />
         </div>
@@ -67,7 +77,7 @@ const citiesSecondColumn = computed(() =>{
             :key="city.id"
             :id="city.id"
             :name="city.name"
-            :totalLocals="city.locals.total"
+            :total-locals="city.locals.total"
             :style="{ backgroundImage: `url(${city.imgUrl})` }"
           />
         </div>

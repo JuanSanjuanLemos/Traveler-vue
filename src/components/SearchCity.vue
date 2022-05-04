@@ -35,15 +35,19 @@ function searchCities(){
   align-items: center;
   gap: 2rem;
 
-  max-width: 24rem;
+  max-width: 22rem;
   background-color: #eef0f1;
 
   border: 1px solid #dce2e6;
   padding: 1rem 0.7rem;
   border-radius: 0.7rem;
 
-    color: #a0acb2;
-  
+  color: #a0acb2;
+  @media (max-width: 576px) {
+    max-width: 10rem;
+    gap: 1rem;
+  }
+
   input {
     border: none;
     width: 100%;

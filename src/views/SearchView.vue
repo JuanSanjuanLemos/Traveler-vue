@@ -1,8 +1,8 @@
-<script setup >
-import { computed, onMounted} from "vue";
+<script setup lang="ts">
+import { computed, onMounted } from "vue";
 import Header from "../components/Header.vue";
 import CardCity from "../components/CardCity.vue";
-import {useGetData} from '../store/useGetData';
+import { useGetData } from "../store/useGetData";
 
 interface City {
   id: number;
@@ -12,22 +12,15 @@ interface City {
 }
 
 const store = useGetData();
-
-
-const citiesSearch = computed(() => {
-  return store.citiesSearch
-})
-
-const isCityFind = computed(() =>{
-  return store.isCityFind
-})
-
-const listInScreen = computed(() => {
-  return store.listInScreen
-})
-
 store.fetchCities();
 
+const isCityFind = computed(() => {
+  return store.isCityFind;
+});
+
+const listInScreen = computed(() => {
+  return store.listInScreen;
+});
 
 </script>
 
@@ -42,15 +35,16 @@ store.fetchCities();
           :key="city.id"
           :id="city.id"
           :name="city.name"
-          :totalLocals="city.locals.total"
+          :total-locals="city.locals.total"
           :img-url="city.imgUrl"
         />
       </div>
     </div>
     <div v-else class="not-found">
       <div>
-        <img src="/images/emoji.svg" alt="Emoji triste">
-        <p>Sem resultados. <br>
+        <img src="/images/emoji.svg" alt="Emoji triste" />
+        <p>
+          Sem resultados. <br />
           Tente uma nova busca
         </p>
       </div>
@@ -59,34 +53,34 @@ store.fetchCities();
 </template>
 
 <style scoped lang="scss">
-.content{
-  padding: 3rem 1rem;
+.content {
+  padding: 3rem 0;
 
-  .text-search{
+  .text-search {
     font-size: 2.2rem;
     color: #123952;
     font-weight: 600;
-    font-family: 'Barlow';
+    font-family: "Barlow";
     margin-bottom: 2rem;
   }
   .grid-cities {
     display: grid;
-    justify-content: space-between;
-    grid-template-columns: repeat( auto-fit, (250px) );
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 250px));
     gap: 3.3rem;
   }
 }
-  .not-found{
-    height: 80vh;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    div{
-      text-align: center;
-      font-size: 1.5rem;
-      color: #617480;
-      font-weight: 500;
-    }
+.not-found {
+  height: 80vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  div {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #617480;
+    font-weight: 500;
   }
+}
 </style>

@@ -1,47 +1,26 @@
 <script setup lang="ts">
 import { useGetData } from "@/store/useGetData";
-import { ref, onMounted, computed, watch } from "vue";
-import CardCity from "../components/CardCity.vue";
+import { ref, computed, watch } from "vue";
 import Header from "../components/Header.vue";
 import Spots from "../components/Spots.vue";
 import CardLocal from "../components/CardLocal.vue";
-
-interface City {
-  id: number;
-  imgUrl: string;
-  name: string;
-  locals: {
-    total: Number;
-    turism: Number;
-    event: Number;
-  };
-  localList: {
-    name: String;
-    type: String;
-    typeId: Number;
-    ratting: Number;
-    imgUrl: String;
-  };
-  description: string;
-  shortDescription: string;
-}
-
-const store = useGetData();
 const cityCurrent = ref<any>([]);
+const currentPath = window.location.href;
+const cityId = Number(currentPath.slice(currentPath.length - 1));
+
+const isLoading = ref(true)
+const store = useGetData();
+store.fetchCities();
 
 const cities = computed(() => {
   return store.cities;
 });
-const currentPath = window.location.href;
-const cityId = Number(currentPath.slice(currentPath.length - 1));
-
-store.fetchCities();
 
 watch(cities, () => {
   cities.value.map((city) => {
     if (city.id === cityId) {
       cityCurrent.value = city;
-      console.log(cityCurrent.value)
+      isLoading.value = false;
     }
   });
 });
@@ -49,11 +28,12 @@ watch(cities, () => {
 
 <template>
   <Header />
-  <main>
+  <main v-if="!isLoading">
     <div
       class="banner-city"
-      :style="{ backgroundImage: `url(${cityCurrent.bannerUrl})` }"
-    ></div>
+      :style="{ backgroundImage: `url(${cityCurrent.bannerUrl})`}"
+    >
+    </div>
     <div class="content">
       <section class="about-section">
         <div class="box-about">
@@ -82,6 +62,7 @@ watch(cities, () => {
       </section>
     </div>
   </main>
+  <p v-else> Carregando...</p>
 </template>
 
 <style scoped lang="scss">

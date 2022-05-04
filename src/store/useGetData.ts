@@ -1,22 +1,21 @@
 import { api } from "@/services/api";
 import { defineStore } from "pinia";
 
-
 interface City {
   id: number;
   imgUrl: string;
   name: string;
   locals: {
-    total: Number;
-    turism: Number;
-    event: Number;
+    total: number;
+    turism: number;
+    event: number;
   };
   localList:{
-    name:String;
-    type: String;
-    typeId:Number;
-    ratting: Number;
-    imgUrl: String;
+    name:string;
+    type: string;
+    typeId:number;
+    ratting: number;
+    imgUrl: string;
   }
   description: string;
   shortDescription: string;
@@ -25,10 +24,6 @@ interface City {
 export const useGetData = defineStore("getData", {
   state: () => ({
     cities: <City[]>[],
-
-    citiesFirstColumn: <City[]>[],
-    citiesSecondColumn: <City[]>[],
-
     citiesSearch: <City[]>[],
     listInScreen: <City[]>[],
     isCityFind: true
@@ -46,9 +41,6 @@ export const useGetData = defineStore("getData", {
 
         this.cities = resp;
         this.listInScreen = this.cities;
-
-        this.citiesFirstColumn = this.cities.slice(0, 3);
-        this.citiesSecondColumn = this.cities.slice(3, 5);
       } catch (error) {
         alert(error);
       }
