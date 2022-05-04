@@ -55,6 +55,7 @@ const listInScreen = computed(() => {
 <style scoped lang="scss">
 .content {
   padding: 3rem 0;
+  min-height: 90vh;
 
   .text-search {
     font-size: 2.2rem;
@@ -71,7 +72,7 @@ const listInScreen = computed(() => {
   }
 }
 .not-found {
-  height: 80vh;
+  height: 90vh;
   width: 100%;
   display: flex;
   align-items: center;

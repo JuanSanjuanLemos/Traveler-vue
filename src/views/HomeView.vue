@@ -97,8 +97,6 @@ watch(cities,() =>{
     justify-content: space-between;
     @media (max-width:1024px) {
           justify-content: center;
-
-      
     }
     .wrapper-welcome {
       display: flex;
