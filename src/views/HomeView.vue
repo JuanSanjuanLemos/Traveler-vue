@@ -91,14 +91,22 @@ watch(cities,() =>{
   padding: 3rem 1rem;
   .content {
     display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
     width: 100%;
     justify-content: space-between;
+    @media (max-width:1024px) {
+          justify-content: center;
+
+      
+    }
     .wrapper-welcome {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 2.5rem;
       max-width: 20rem;
+      margin-bottom: 5rem;
       h1 {
         font-size: 5rem;
         font-family: "Barlow";
@@ -130,6 +138,7 @@ watch(cities,() =>{
   }
   .wrapper-list {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
     gap: 2rem;
@@ -138,9 +147,13 @@ watch(cities,() =>{
       display: flex;
       flex-direction: column;
       gap: 2rem;
-      width: 316px;
+      width: 19.75rem;
       &.-second {
         margin-top: 4rem;
+
+        @media (max-width:768px) {
+          display: none;
+        }
       }
     }
   }
